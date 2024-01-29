@@ -1,5 +1,11 @@
 package post
 
-type Repository interface{}
+import "github.com/dot-test/internal/models"
 
-type Usecase interface{}
+type Repository interface {
+	CreatePost(post models.Post) error
+}
+
+type Usecase interface {
+	CreatePost(post models.Post) error
+}

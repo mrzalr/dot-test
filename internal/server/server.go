@@ -20,5 +20,7 @@ func New(db *gorm.DB) *server {
 }
 
 func (s *server) Run(port string) error {
+	s.mapRoutes()
+
 	return s.app.Listen(fmt.Sprintf(":%s", port))
 }
