@@ -4,7 +4,9 @@ import (
 	"log"
 	"os"
 
+	"github.com/dot-test/internal/models"
 	"github.com/dot-test/internal/server"
+	"github.com/dot-test/pkg/db"
 	"github.com/joho/godotenv"
 )
 
@@ -13,7 +15,18 @@ func StartApp() {
 		log.Fatalf("load env error: %s\n", err.Error())
 	}
 
-	s := server.New()
+	db, err := db.NewMysql()
+	if err != nil {
+		log.Fatalf("connecting database error: %s\n", err.Error())
+	}
+
+	if err := db.AutoMigrate(
+		&models.Post{},
+	); err != nil {
+		log.Fatalf("auto migrate error: %s\n", err.Error())
+	}
+
+	s := server.New(db)
 
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
