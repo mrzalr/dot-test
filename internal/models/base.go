@@ -7,7 +7,7 @@ import (
 )
 
 type Base struct {
-	ID        uuid.UUID
+	ID        uuid.UUID `gorm:"type:uuid"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

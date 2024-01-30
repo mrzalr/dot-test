@@ -124,7 +124,8 @@ func (h *handler) UpdatePost() fiber.Handler {
 			return err
 		}
 
-		payload := models.Post{Base: models.Base{ID: _uuid}}
+		payload := models.Post{}
+		payload.ID = _uuid
 		if err := c.BodyParser(&payload); err != nil {
 			return err
 		}

@@ -11,6 +11,21 @@ type repository struct {
 	db *gorm.DB
 }
 
+func (r *repository) WithTrx(trx *gorm.DB) (*gorm.DB, post.Repository) {
+	if trx == nil {
+		trx = r.db.Begin()
+	}
+
+	return trx, &repository{
+		db: trx,
+	}
+}
+
+func (r *repository) UpdateLikesCount(id uuid.UUID, likeCount int) error {
+	tx := r.db.Model(&models.Post{}).Where("id = ?", id).Update("like_count", likeCount)
+	return tx.Error
+}
+
 func (r *repository) DeletePost(id uuid.UUID) error {
 	tx := r.db.Where("id = ?", id).Delete(&models.Post{})
 	return tx.Error

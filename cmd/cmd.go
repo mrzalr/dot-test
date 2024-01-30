@@ -22,6 +22,7 @@ func StartApp() {
 
 	if err := db.AutoMigrate(
 		&models.Post{},
+		&models.Like{},
 	); err != nil {
 		log.Fatalf("auto migrate error: %s\n", err.Error())
 	}
