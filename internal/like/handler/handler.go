@@ -18,13 +18,13 @@ func (h *handler) Dislike() fiber.Handler {
 		postID := c.Params("postID")
 		postUUID, err := uuid.Parse(postID)
 		if err != nil {
-			return err
+			return like.ErrBadRequest
 		}
 
 		payload := models.Like{}
 		payload.PostID = postUUID
 		if err := c.BodyParser(&payload); err != nil {
-			return err
+			return like.ErrBadRequest
 		}
 
 		if err := h.usecase.Dislike(payload); err != nil {
@@ -48,13 +48,13 @@ func (h *handler) Like() fiber.Handler {
 		postID := c.Params("postID")
 		postUUID, err := uuid.Parse(postID)
 		if err != nil {
-			return err
+			return like.ErrBadRequest
 		}
 
 		payload := models.Like{}
 		payload.PostID = postUUID
 		if err := c.BodyParser(&payload); err != nil {
-			return err
+			return like.ErrBadRequest
 		}
 
 		if err := h.usecase.Like(payload); err != nil {

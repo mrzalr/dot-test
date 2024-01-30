@@ -3,6 +3,7 @@ package server
 import (
 	"fmt"
 
+	errorhandler "github.com/dot-test/internal/middleware/error-handler"
 	"github.com/gofiber/fiber/v2"
 	"gorm.io/gorm"
 )
@@ -14,8 +15,10 @@ type server struct {
 
 func New(db *gorm.DB) *server {
 	return &server{
-		app: fiber.New(),
-		db:  db,
+		app: fiber.New(fiber.Config{
+			ErrorHandler: errorhandler.CustomErrorHandler,
+		}),
+		db: db,
 	}
 }
 

@@ -18,7 +18,7 @@ func (h *handler) CreatePost() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		payload := models.NewPost()
 		if err := c.BodyParser(&payload); err != nil {
-			return err
+			return post.ErrBadRequest
 		}
 
 		if err := h.usecase.CreatePost(payload); err != nil {
@@ -39,7 +39,7 @@ func (h *handler) GetPostByID() fiber.Handler {
 		id := c.Params("id")
 		_uuid, err := uuid.Parse(id)
 		if err != nil {
-			return err
+			return post.ErrBadRequest
 		}
 
 		post, err := h.usecase.GetPostByID(_uuid)
@@ -77,7 +77,7 @@ func (h *handler) Delete() fiber.Handler {
 		id := c.Params("id")
 		_uuid, err := uuid.Parse(id)
 		if err != nil {
-			return err
+			return post.ErrBadRequest
 		}
 
 		err = h.usecase.DeletePost(_uuid)
@@ -99,7 +99,7 @@ func (h *handler) PublishPost() fiber.Handler {
 		id := c.Params("id")
 		_uuid, err := uuid.Parse(id)
 		if err != nil {
-			return err
+			return post.ErrBadRequest
 		}
 
 		err = h.usecase.PublishPost(_uuid)
@@ -121,7 +121,7 @@ func (h *handler) UpdatePost() fiber.Handler {
 		id := c.Params("id")
 		_uuid, err := uuid.Parse(id)
 		if err != nil {
-			return err
+			return post.ErrBadRequest
 		}
 
 		payload := models.Post{}
