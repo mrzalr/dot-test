@@ -13,7 +13,7 @@ func CacheFlusher(_redis *redis.Client) fiber.Handler {
 		err := c.Next()
 
 		if string(c.Request().Header.Method()) != http.MethodGet {
-			_redis.FlushAll(c.Context())
+			_redis.Del(context.Background(), "popular_post")
 			log.Println("Cache flushed")
 		}
 
