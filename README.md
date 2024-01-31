@@ -30,4 +30,6 @@ Selain menggunakan Repository Pattern, saya juga menerapkan Pattern DDD (Domain 
 # Cara menjalankan program
 1. git clone https://github.com/mrzalr/dot-test.git
 2. cd dot-test
-3. go run .
+3. edit env.example file
+4. import init.sql file
+5. go run .
