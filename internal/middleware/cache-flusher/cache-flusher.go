@@ -10,13 +10,13 @@ import (
 
 func CacheFlusher(_redis *redis.Client) fiber.Handler {
 	return func(c *fiber.Ctx) error {
-		c.Next()
+		err := c.Next()
 
 		if string(c.Request().Header.Method()) != http.MethodGet {
 			_redis.FlushAll(c.Context())
 			log.Println("Cache flushed")
 		}
 
-		return nil
+		return err
 	}
 }
