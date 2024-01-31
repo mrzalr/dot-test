@@ -11,7 +11,7 @@ import (
 
 func (s *server) mapRoutes() {
 	postRepo := postRepository.New(s.db)
-	postUC := postUsecase.New(postRepo)
+	postUC := postUsecase.New(postRepo, s._redis)
 	_postHandler := postHandler.New(postUC)
 
 	likeRepo := likeRepository.New(s.db)

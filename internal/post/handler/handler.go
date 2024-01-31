@@ -72,6 +72,22 @@ func (h *handler) GetPosts() fiber.Handler {
 	}
 }
 
+func (h *handler) GetPopularPost() fiber.Handler {
+	return func(c *fiber.Ctx) error {
+		posts, err := h.usecase.GetPopularPost()
+		if err != nil {
+			return err
+		}
+
+		return c.JSON(models.Response{
+			Status:  http.StatusOK,
+			Message: "success",
+			Data:    posts,
+			Error:   "",
+		})
+	}
+}
+
 func (h *handler) Delete() fiber.Handler {
 	return func(c *fiber.Ctx) error {
 		id := c.Params("id")

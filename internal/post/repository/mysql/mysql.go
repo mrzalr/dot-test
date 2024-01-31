@@ -21,6 +21,13 @@ func (r *repository) WithTrx(trx *gorm.DB) (*gorm.DB, post.Repository) {
 	}
 }
 
+func (r *repository) GetPopularPost() ([]models.Post, error) {
+	popularPost := []models.Post{}
+	tx := r.db.Where("is_published = ?", true).
+		Order("like_count DESC").Limit(10).Find(&popularPost)
+	return popularPost, tx.Error
+}
+
 func (r *repository) UpdateLikesCount(id uuid.UUID, likeCount int) error {
 	tx := r.db.Model(&models.Post{}).Where("id = ?", id).Update("like_count", likeCount)
 	return tx.Error

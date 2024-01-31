@@ -7,6 +7,7 @@ import (
 	"github.com/dot-test/internal/models"
 	"github.com/dot-test/internal/server"
 	"github.com/dot-test/pkg/db"
+	"github.com/dot-test/pkg/redis"
 	"github.com/joho/godotenv"
 )
 
@@ -27,7 +28,9 @@ func StartApp() {
 		log.Fatalf("auto migrate error: %s\n", err.Error())
 	}
 
-	s := server.New(db)
+	_redis := redis.New()
+
+	s := server.New(db, _redis)
 
 	port := os.Getenv("PORT")
 	if len(port) == 0 {
