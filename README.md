@@ -25,3 +25,9 @@ Beberapa alasan mengapa saya memilih pattern ini adalah sebagai berikut:
 5. Kode menjadi lebih mudah untuk digunakan kembali.
 
 Selain menggunakan Repository Pattern, saya juga menerapkan Pattern DDD (Domain Driven Design), dimana setiap domain dipisahkan ke dalam folder-folder tersendiri. Ini dapat mempermudah ketika aplikasi menjadi besar dan kompleks, karena proses pemecahan menjadi microservice menjadi lebih mudah karena sudah dibedakan berdasarkan domain itu sendiri.
+
+
+# Cara menjalankan program
+1. git clone https://github.com/mrzalr/dot-test.git
+2. cd dot-test
+3. go run .
